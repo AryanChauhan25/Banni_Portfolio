@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap');
+
+:root {
+  /* Brand palette */
+  --ink: #0d0d0d;
+  --off-white: #f5f4f0;
+  --brandzyo-red: #ff4d6d;
+  --electric-violet: #7b2fff;
+  --spark-orange: #ff8c42;
+
+  --ink-rgb: 13, 13, 13;
+  --off-white-rgb: 245, 244, 240;
+  --brandzyo-red-rgb: 255, 77, 109;
+  --electric-violet-rgb: 123, 47, 255;
+  --spark-orange-rgb: 255, 140, 66;
+
+  /* Semantic tokens */
+  --bg: var(--ink);
+  --bg-elevated: #141414;
+  --panel: rgba(var(--off-white-rgb), 0.04);
+  --text: rgba(var(--off-white-rgb), 0.72);
+  --text-high: var(--off-white);
+  --text-muted: rgba(var(--off-white-rgb), 0.52);
+  --line: rgba(var(--off-white-rgb), 0.1);
+
+  --accent-primary: var(--brandzyo-red);
+  --accent-secondary: var(--electric-violet);
+  --accent-warm: var(--spark-orange);
+
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--spark-orange) 0%,
+    var(--brandzyo-red) 52%,
+    var(--electric-violet) 100%
+  );
+  --gradient-glow: linear-gradient(135deg, var(--spark-orange), var(--electric-violet));
+  --gradient-soft: linear-gradient(
+    135deg,
+    rgba(var(--spark-orange-rgb), 0.9),
+    rgba(var(--electric-violet-rgb), 0.9)
+  );
+
+  --display-font: 'Cormorant Garamond', Georgia, serif;
+  --body-font: 'Inter', system-ui, sans-serif;
+  --page-gutter: clamp(0.75rem, 2.5vw, 1.75rem);
+  --section-space: clamp(2.5rem, 5vw, 4rem);
+  --grid-gap: clamp(0.85rem, 1.5vw, 1.15rem);
+
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(var(--brandzyo-red-rgb), 0.14), transparent 32%),
+    radial-gradient(circle at right 18%, rgba(var(--electric-violet-rgb), 0.16), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(var(--spark-orange-rgb), 0.08), transparent 42%),
+    linear-gradient(180deg, #111111 0%, var(--ink) 100%);
+  font-family: var(--body-font);
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg);
+  overflow-x: clip;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display-font);
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-high);
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  color: var(--ink);
+  background: rgba(var(--brandzyo-red-rgb), 0.85);
+}
+
+:focus-visible {
+  outline: 2px solid rgba(var(--brandzyo-red-rgb), 0.95);
+  outline-offset: 4px;
+}

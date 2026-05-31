@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="Female avatar illustration">
+  <defs>
+    <linearGradient id="avatar-bg" x1="18" y1="8" x2="102" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1a1a1a"/>
+      <stop offset="1" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="avatar-glow" x1="24" y1="16" x2="96" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8C42" stop-opacity="0.35"/>
+      <stop offset="0.5" stop-color="#FF4D6D" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#7B2FFF" stop-opacity="0.32"/>
+    </linearGradient>
+    <linearGradient id="hair" x1="40" y1="18" x2="82" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2a2040"/>
+      <stop offset="1" stop-color="#141018"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="48" y1="44" x2="76" y2="92" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0d2b8"/>
+      <stop offset="1" stop-color="#d9a889"/>
+    </linearGradient>
+    <linearGradient id="blouse" x1="34" y1="78" x2="86" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8C42"/>
+      <stop offset="0.5" stop-color="#FF4D6D"/>
+      <stop offset="1" stop-color="#7B2FFF"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#avatar-bg)"/>
+  <circle cx="60" cy="60" r="58" fill="url(#avatar-glow)"/>
+  <ellipse cx="60" cy="70" rx="40" ry="34" fill="url(#hair)"/>
+  <path fill="url(#blouse)" d="M28 98c6-14 20-22 32-22s26 8 32 22c-8 12-22 18-32 18s-24-6-32-18Z"/>
+  <ellipse cx="60" cy="64" rx="27" ry="30" fill="url(#skin)"/>
+  <path fill="url(#hair)" d="M32 58c2-18 14-30 28-30s26 12 28 30c-4 6-10 10-16 12-4 2-8 3-12 3s-8-1-12-3c-6-2-12-6-16-12Z"/>
+  <path fill="#221830" d="M38 52c3-10 12-16 22-16s19 6 22 16c-3 4-9 7-14 8-3 1-5 1-8 1s-5 0-8-1c-5-1-11-4-14-8Z"/>
+  <ellipse cx="49" cy="66" rx="3.2" ry="4" fill="#3d2f45"/>
+  <ellipse cx="71" cy="66" rx="3.2" ry="4" fill="#3d2f45"/>
+  <path stroke="#c4886a" stroke-width="1.5" stroke-linecap="round" d="M54 76c3 3 9 3 12 0"/>
+  <ellipse cx="43" cy="72" rx="4" ry="2.5" fill="#FF4D6D" opacity="0.22"/>
+  <ellipse cx="77" cy="72" rx="4" ry="2.5" fill="#FF4D6D" opacity="0.22"/>
+  <path fill="#FF8C42" opacity="0.85" d="M56 44c2-6 8-10 14-10h2c2 0 4 1 5 3l-4 2c-2 1-4 1-6 0l-3-2c-1-2-4-3-6-3l-2 8Z"/>
+  <circle cx="60" cy="60" r="58" stroke="rgba(245,244,240,0.16)" stroke-width="1.5"/>
+</svg>
