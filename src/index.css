@@ -42,7 +42,7 @@
 
   --display-font: 'Cormorant Garamond', Georgia, serif;
   --body-font: 'Inter', system-ui, sans-serif;
-  --page-gutter: clamp(0.75rem, 2.5vw, 1.75rem);
+  --page-gutter: clamp(1rem, 3vw, 2.5rem);
   --section-space: clamp(2.5rem, 5vw, 4rem);
   --grid-gap: clamp(0.85rem, 1.5vw, 1.15rem);
 

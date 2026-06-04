@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { Avatar } from './components/Avatar'
 import { SkillItemIcon } from './components/SkillItemIcon'
@@ -18,6 +18,7 @@ import {
   metrics,
   navLinks,
   profile,
+  reviews,
   sections,
   skillGroups,
   services,
@@ -25,6 +26,9 @@ import {
   timeline,
   workItems,
 } from './data'
+
+const heroNameSequence = [profile.name]
+const heroRoleSequence = [profile.title, 'Content Creator', 'Brand Growth Strategist']
 
 const socialIcons = {
   linkedin: (
@@ -40,6 +44,11 @@ const socialIcons = {
   instagram: (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm8.75 1.75A1.25 1.25 0 1 1 14.5 7a1.25 1.25 0 0 1 1.25-1.25ZM12 7.75A4.25 4.25 0 1 1 7.75 12 4.25 4.25 0 0 1 12 7.75Zm0 2A2.25 2.25 0 1 0 14.25 12 2.25 2.25 0 0 0 12 9.75Z" />
+    </svg>
+  ),
+  whatsapp: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2.25a9.75 9.75 0 0 0-8.33 14.81L2.5 22l5.1-1.12A9.75 9.75 0 1 0 12 2.25Zm0 2a7.75 7.75 0 0 1 6.74 11.6l-.17.31a7.75 7.75 0 0 1-10.2 3l-3.2.71.7-3.11a7.75 7.75 0 1 1 6.13-12.51Zm4.1 9.82c-.22-.11-1.3-.64-1.5-.72s-.36-.11-.51.11-.58.72-.71.86-.26.16-.49.05a6.3 6.3 0 0 1-1.87-1.16 7 7 0 0 1-1.3-1.62c-.13-.22-.01-.35.1-.47.1-.1.22-.26.33-.39a1.5 1.5 0 0 0 .22-.37.41.41 0 0 0 0-.37c-.06-.11-.51-1.23-.7-1.68s-.37-.38-.51-.39h-.44a.85.85 0 0 0-.61.28 2.56 2.56 0 0 0-.79 1.9 4.46 4.46 0 0 0 .94 2.36 10.19 10.19 0 0 0 3.92 3.56c.55.23.98.37 1.31.48a3.16 3.16 0 0 0 1.45.09c.44-.07 1.3-.53 1.48-1.04s.18-.95.13-1.04-.18-.16-.4-.27Z" />
     </svg>
   ),
 }
@@ -77,13 +86,142 @@ const skillIcons = {
   ),
 }
 
+const serviceIcons = {
+  'Social Media Strategy': skillIcons['Social Media'],
+  'Meta Ads': skillIcons['Paid Advertising'],
+  'Google Ads': <SkillItemIcon name="Google Ads" />,
+  'Content Creation': skillIcons['Content Creation'],
+  'AI-Assisted Content': (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3.75 13.7 8.2 18 9.9l-4.3 1.7L12 16l-1.7-4.4L6 9.9l4.3-1.7L12 3.75Z" />
+      <path d="M18.8 13.2l.9 2.2 2.2.9-2.2.9-.9 2.2-.9-2.2-2.2-.9 2.2-.9.9-2.2Z" />
+      <path d="M5.2 14.5l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7.7-1.7Z" />
+    </svg>
+  ),
+  'CRM & Automation': (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 7.5A1.5 1.5 0 0 1 5.5 6h4A1.5 1.5 0 0 1 11 7.5v4A1.5 1.5 0 0 1 9.5 13h-4A1.5 1.5 0 0 1 4 11.5v-4Z" />
+      <path d="M13 5.5A1.5 1.5 0 0 1 14.5 4h5A1.5 1.5 0 0 1 21 5.5v5A1.5 1.5 0 0 1 19.5 12h-5A1.5 1.5 0 0 1 13 10.5v-5Z" />
+      <path d="M13 14.5A1.5 1.5 0 0 1 14.5 13h5A1.5 1.5 0 0 1 21 14.5v5A1.5 1.5 0 0 1 19.5 21h-5A1.5 1.5 0 0 1 13 19.5v-5Z" />
+      <path d="M9 9h4M11 7v4M9.5 13.5 13.5 14.5M15.5 12.5l-2 2M16 16v1.5" />
+    </svg>
+  ),
+}
+
+function useTypewriterSequence(words, active, options = {}) {
+  const { durationMs = 3000, holdMs = 900, loop = true } = options
+  const [text, setText] = useState('')
+  const [wordIndex, setWordIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+  const [complete, setComplete] = useState(false)
+
+  useEffect(() => {
+    if (!active) {
+      setText('')
+      setWordIndex(0)
+      setCharIndex(0)
+      setComplete(false)
+      return undefined
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const currentWord = words[wordIndex] ?? ''
+
+    if (prefersReducedMotion) {
+      setText(words[0] ?? '')
+      setComplete(true)
+      return undefined
+    }
+
+    if (charIndex < currentWord.length) {
+      const intervalMs = Math.max(35, Math.round(durationMs / Math.max(currentWord.length, 1)))
+      const timer = window.setTimeout(() => {
+        const nextIndex = Math.min(currentWord.length, charIndex + 1)
+        setCharIndex(nextIndex)
+        setText(currentWord.slice(0, nextIndex))
+        if (nextIndex >= currentWord.length && !loop) {
+          setComplete(true)
+        } else {
+          setComplete(false)
+        }
+      }, intervalMs)
+
+      return () => window.clearTimeout(timer)
+    }
+
+    if (!loop) {
+      setComplete(true)
+    }
+
+    if (!loop && wordIndex === words.length - 1) {
+      return undefined
+    }
+
+    const timer = window.setTimeout(() => {
+      setWordIndex((current) => (current + 1) % words.length)
+      setCharIndex(0)
+      setText('')
+      setComplete(false)
+    }, holdMs)
+
+    return () => window.clearTimeout(timer)
+  }, [active, charIndex, durationMs, holdMs, loop, wordIndex, words])
+
+  return { text, complete }
+}
+
 function App() {
   const [introReady, setIntroReady] = useState(false)
   const [loading, setLoading] = useState(true)
   const [loadingStep, setLoadingStep] = useState(0)
-  const [scrollProgress, setScrollProgress] = useState(0)
   const [navOpen, setNavOpen] = useState(false)
   const heroActive = introReady && !loading
+  const reviewsTrackRef = useRef(null)
+  const { text: typedName, complete: nameComplete } = useTypewriterSequence(heroNameSequence, heroActive, {
+    durationMs: 1500,
+    holdMs: 1200,
+    loop: false,
+  })
+  const { text: typedRole } = useTypewriterSequence(heroRoleSequence, heroActive, {
+    durationMs: 1500,
+    holdMs: 700,
+    loop: true,
+  })
+
+  const slideReviews = (direction) => {
+    const node = reviewsTrackRef.current
+    if (!node) return
+
+    const firstCard = node.querySelector('.review-card')
+    const gapValue = window.getComputedStyle(node).gap || '0px'
+    const gap = Number.parseFloat(gapValue) || 0
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : Math.max(320, Math.round(node.clientWidth * 0.7))
+    const step = cardWidth + gap
+    const maxScroll = Math.max(0, node.scrollWidth - node.clientWidth)
+    const current = node.scrollLeft
+
+    if (direction > 0 && current >= maxScroll - 4) {
+      node.scrollTo({ left: 0, behavior: 'smooth' })
+      return
+    }
+
+    if (direction < 0 && current <= 4) {
+      node.scrollTo({ left: maxScroll, behavior: 'smooth' })
+      return
+    }
+
+    const nextPosition = Math.max(0, Math.min(maxScroll, current + step * direction))
+    node.scrollTo({ left: nextPosition, behavior: 'smooth' })
+  }
+
+  const getReviewInitials = (name) =>
+    name
+      .split(' ')
+      .filter(Boolean)
+      .map((part) => part[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase()
 
   useEffect(() => {
     const rafId = requestAnimationFrame(() => setIntroReady(true))
@@ -103,23 +241,6 @@ function App() {
     return () => {
       window.clearInterval(stepTimer)
       window.clearTimeout(doneTimer)
-    }
-  }, [])
-
-  useEffect(() => {
-    const updateScroll = () => {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight
-      const progress = scrollable > 0 ? window.scrollY / scrollable : 0
-      setScrollProgress(progress)
-    }
-
-    updateScroll()
-    window.addEventListener('scroll', updateScroll, { passive: true })
-    window.addEventListener('resize', updateScroll)
-
-    return () => {
-      window.removeEventListener('scroll', updateScroll)
-      window.removeEventListener('resize', updateScroll)
     }
   }, [])
 
@@ -156,7 +277,7 @@ function App() {
         label={loadingIntro.label}
         words={loadingIntro.words}
       />
-      <ScrollOrb progress={scrollProgress} />
+      <ScrollOrb />
       <div className="ambient ambient-a" aria-hidden="true" />
       <div className="ambient ambient-b" aria-hidden="true" />
       <div className="ambient ambient-c" aria-hidden="true" />
@@ -207,6 +328,17 @@ function App() {
           className={`nav-links ${navOpen ? 'is-open' : ''}`}
           aria-label="Primary"
         >
+          <div className="nav-drawer-head">
+            <span className="nav-drawer-label">Menu</span>
+            <button
+              type="button"
+              className="nav-close"
+              aria-label="Close menu"
+              onClick={closeNav}
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -225,18 +357,27 @@ function App() {
           <Reveal className="hero-copy">
             <div className={`hero-statement ${heroActive ? 'is-visible' : ''}`}>
               <p className="intro-kicker">{heroCopy.kicker}</p>
-              <h1 aria-label={profile.name}>
-                {profile.name.split(' ').map((part, index) => (
-                  <span
-                    key={`${part}-${index}`}
-                    className="name-line"
-                    style={{ '--name-delay': `${index * 0.18}s` }}
-                  >
-                    {part}
+              <h1 className="typewriter-line typewriter-name" aria-label={profile.name}>
+                <span className="typewriter-text" aria-hidden="true">
+                  {typedName}
+                </span>
+                {heroActive && !nameComplete ? (
+                  <span className="typewriter-cursor is-visible" aria-hidden="true">
+                    |
                   </span>
-                ))}
+                ) : null}
               </h1>
-              <p className="intro-role">{profile.title}</p>
+              <p className="intro-role typewriter-line" aria-label={profile.title}>
+                <span className="typewriter-gradient" aria-hidden="true">
+                  {typedRole}
+                </span>
+                <span
+                  className={`typewriter-cursor typewriter-cursor-role ${heroActive ? 'is-visible' : ''}`}
+                  aria-hidden="true"
+                >
+                  |
+                </span>
+              </p>
             </div>
             <p className="lead">{heroCopy.lead}</p>
 
@@ -264,9 +405,7 @@ function App() {
               <div className="portrait-frame">
                 <div className="portrait-orb portrait-orb-a" aria-hidden="true" />
                 <div className="portrait-orb portrait-orb-b" aria-hidden="true" />
-                <div className="portrait-avatar">
-                  <Avatar alt={profile.avatarAlt} />
-                </div>
+                <Avatar className="portrait-image" alt={profile.avatarAlt} />
               </div>
 
               <div className="hero-card-content">
@@ -420,8 +559,12 @@ function App() {
                 direction={index % 2 === 0 ? 'left' : 'right'}
                 data-cursor="hover"
               >
-                <p className="service-index">0{index + 1}</p>
-                <h3>{service.title}</h3>
+                <div className="service-heading">
+                  <span className="service-icon" aria-hidden="true">
+                    {serviceIcons[service.title]}
+                  </span>
+                  <h3>{service.title}</h3>
+                </div>
                 <p>{service.description}</p>
               </Reveal>
             ))}
@@ -476,12 +619,75 @@ function App() {
           </div>
         </section>
 
+        <section className="section" id="reviews">
+          <SectionHeading {...sections.reviews} />
+
+          <div className="reviews-shell glass">
+            <div className="reviews-window">
+              <div className="reviews-track" ref={reviewsTrackRef}>
+                {reviews.map((review, index) => (
+                  <article
+                    key={`${review.name}-${review.role}`}
+                    className="glass review-card"
+                    data-cursor="hover"
+                  >
+                    <div className="review-card-top">
+                      <span className="review-avatar" aria-hidden="true">
+                        {getReviewInitials(review.name)}
+                      </span>
+                      <span className="review-badge">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="review-stars" aria-hidden="true">
+                        ★★★★★
+                      </span>
+                    </div>
+                    <p className="review-quote">"{review.quote}"</p>
+                    <div className="review-footer">
+                      <strong className="review-name">{review.name}</strong>
+                      <span>{review.role}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="reviews-controls" aria-label="Review slider controls">
+              <button
+                type="button"
+                className="reviews-arrow"
+                aria-label="Previous review"
+                onClick={() => slideReviews(-1)}
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <button
+                type="button"
+                className="reviews-arrow"
+                aria-label="Next review"
+                onClick={() => slideReviews(1)}
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="contact">
           <Reveal className="contact-shell glass">
             <div className="contact-intro">
               <p className="eyebrow">{sections.contact.eyebrow}</p>
               <h2>{sections.contact.title}</h2>
               <p className="contact-copy">{sections.contact.description}</p>
+
+              <div className="contact-support">
+                <p className="contact-support-title">{sections.contact.supportTitle}</p>
+                <ul className="contact-support-points">
+                  {sections.contact.supportPoints.map((point) => (
+                    <li key={point} className="contact-support-point">
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <ul className="contact-highlights">
                 {contactHighlights.map((item) => (

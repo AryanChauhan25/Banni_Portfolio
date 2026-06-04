@@ -1,8 +1,10 @@
+import banniImage from '../assets/banni.png'
+
 export function Avatar({ className, alt, decorative = false }) {
   return (
     <img
       className={className}
-      src="/avatar.svg"
+      src={banniImage}
       alt={decorative ? '' : alt}
       width={120}
       height={120}

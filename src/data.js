@@ -70,11 +70,23 @@ export const sections = {
     description:
       'A sample of brand accounts and websites I have worked on. Click any card to open the live profile or website.',
   },
-  contact: {
+  reviews: {
+    eyebrow: 'Reviews',
+    title: 'What Clients and Collaborators Say',
+    description:
+      'A few short notes from people I have worked with across social media, branding, and campaign execution.',
+  },
+    contact: {
     eyebrow: 'Contact',
     title: 'Ready to grow your brand on social?',
     description:
-      'Available for social strategy, paid media, content systems, and AI-assisted creative workflows. Share your goals — I will respond with a clear next step.',
+      'Available for social strategy, paid media, content systems, and AI-assisted creative workflows. Share your goals with me and I will respond with a clear next step.',
+    supportTitle: 'What I can help with',
+    supportPoints: [
+      'Monthly content planning, captions, and reel strategy',
+      'Meta Ads, Google Ads, and performance campaign optimization',
+      'Brand voice, reporting, and steady audience growth systems',
+    ],
     channelsKicker: 'Direct channels',
     channelsNote: 'Pick the option that works best for you.',
   },
@@ -255,7 +267,7 @@ export const services = [
   {
     title: 'Content Creation',
     description:
-      'Reels, Graphics, and Copy Tailored to Each Brand — from Canva and Filmora to AI-Assisted Video Workflows.',
+      'Reels, Graphics, and Copy Tailored to Each Brand from Canva and Filmora to AI-Assisted Video Workflows.',
   },
   {
     title: 'AI-Assisted Content',
@@ -316,6 +328,45 @@ export const workItems = [
   },
 ]
 
+export const reviews = [
+  {
+    name: 'Vibhaas Verma',
+    role: 'Aqueouss Co-founder',
+    quote:
+      'Bannipreet brings structure, speed, and creativity to every campaign. She keeps the brand voice sharp and the execution dependable.',
+  },
+  {
+    name: 'Deepika Kapoor',
+    role: 'Gloriouss Auraa Owner',
+    quote:
+      'She understands what the brand needs before we even ask. Her content ideas, consistency, and campaign handling have been a real asset.',
+  },
+  {
+    name: 'Shivani Bajwa',
+    role: 'Novoscan Brand Ambassador',
+    quote:
+      'Working with Bannipreet felt effortless. She is clear, professional, and always turns ideas into polished social media output.',
+  },
+  {
+    name: 'Aryan Chauhan',
+    role: 'Client Partner',
+    quote:
+      'Very organized, responsive, and creative. Bannipreet improved the quality of our online presence and made the whole process smooth.',
+  },
+  {
+    name: 'Pushkar Jain',
+    role: 'Collaborator',
+    quote:
+      'She has a strong eye for detail and delivers on time. Her work helped us communicate more clearly and look much more premium.',
+  },
+  {
+    name: 'Shubham Upadhyay',
+    role: 'Project Partner',
+    quote:
+      'Bannipreet is dependable and thoughtful. She brings a mix of marketing sense and creative polish that makes a noticeable difference.',
+  },
+]
+
 export const socialLinks = [
   {
     label: 'LinkedIn',
@@ -328,6 +379,12 @@ export const socialLinks = [
     href: 'mailto:baniksandhu2005@gmail.com',
     type: 'mail',
     note: 'baniksandhu2005@gmail.com',
+  },
+  {
+    label: 'WhatsApp',
+    href: 'https://wa.me/918527041663?text=Hi%20Banni%21',
+    type: 'whatsapp',
+    note: 'Connect for a quick chat',
   },
   {
     label: 'Instagram',
@@ -350,5 +407,7 @@ export const navLinks = [
   { href: '#certificates', label: 'Certificates' },
   { href: '#services', label: 'Services' },
   { href: '#work', label: 'Work' },
+  { href: '#reviews', label: 'Reviews' },
   { href: '#contact', label: 'Contact' },
 ]
+
