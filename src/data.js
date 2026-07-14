@@ -70,6 +70,12 @@ export const sections = {
     description:
       'A sample of brand accounts and websites I have worked on. Click any card to open the live profile or website.',
   },
+  projects: {
+    eyebrow: 'Projects',
+    title: 'EazyGrad Campaign Assignment — Reels, Posters, and Strategy Deck',
+    description:
+      'A complete content project built for EazyGrad: a short-form reel, a walkthrough presentation, branded posters, and the full strategy deck. Tap play on any video or open a poster to view it full size.',
+  },
   reviews: {
     eyebrow: 'Reviews',
     title: 'What Clients and Collaborators Say',
@@ -146,7 +152,7 @@ export const metrics = [
 
 export const timeline = [
   {
-    period: 'Jan 2023',
+    period: 'Jan 2023 - Feb 2023',
     title: 'Digital Marketing Intern',
     company: 'DigiUprise',
     location: 'Rajouri Garden, New Delhi',
@@ -154,7 +160,7 @@ export const timeline = [
       'Increased Client Social Media Engagement by 20% within One Month by Managing Content Pipelines across 4 Accounts.',
   },
   {
-    period: 'Feb 2023 – Aug 2024',
+    period: 'Feb 2023 – Mar 2023',
     title: 'Social Media & Digital Marketing Intern (Paid)',
     company: 'SEO Designs Pvt. Ltd.',
     location: 'New Delhi',
@@ -162,7 +168,15 @@ export const timeline = [
       'Managed Content Pipelines, Supported Meta Ads and Google Ads, and Contributed to On-Page SEO with an Average 12-Position Keyword Improvement.',
   },
   {
-    period: 'Aug 2024 – Apr 2025',
+    period: 'Mar 2023 – Mar 2024',
+    title: 'Social Media Executive',
+    company: 'SEO Designs Pvt. Ltd.',
+    location: 'New Delhi',
+    description:
+      'Managed Content Pipelines, Supported Meta Ads and Google Ads, and Contributed to On-Page SEO with an Average 12-Position Keyword Improvement.',
+  },
+  {
+    period: 'Mar 2024 – Aug 2025',
     title: 'Social Media Manager',
     company: 'SEO Designs Pvt. Ltd.',
     location: 'New Delhi',
@@ -170,7 +184,7 @@ export const timeline = [
       'Managed 30+ Brands, Built 4 Client Websites, and Delivered 20–40% ROI Improvement across Paid Campaigns.',
   },
   {
-    period: 'May 2025 – Present',
+    period: 'Aug 2025 – Present',
     title: 'Social Media Manager',
     company: 'Aqueouss · Gloriouss Auraa by Deepika Kapoor · Datafence Cloud Academy',
     location: 'New Delhi',
@@ -407,6 +421,7 @@ export const navLinks = [
   { href: '#certificates', label: 'Certificates' },
   { href: '#services', label: 'Services' },
   { href: '#work', label: 'Work' },
+  { href: '#projects', label: 'Projects' },
   { href: '#reviews', label: 'Reviews' },
   { href: '#contact', label: 'Contact' },
 ]

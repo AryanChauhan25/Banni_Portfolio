@@ -8,6 +8,11 @@ import { LoadingIntro } from './components/LoadingIntro'
 import { Reveal } from './components/Reveal'
 import { ScrollOrb } from './components/ScrollOrb'
 import { SectionHeading } from './components/SectionHeading'
+import reelVideo from './assets/EAZYGRAD REEL .mp4'
+import presentationVideo from './assets/INTERVIEW ASSIGNMENT PPT - EazyGrad.mp4'
+import assignmentPdf from './assets/INTERVIEW ASSIGNMENT PPT - EazyGrad.pdf'
+import reelCover from './assets/Reel Cover EazyGrad.png'
+import linkedinPoster from './assets/EAZYGRAD LINKEDIN POST .png'
 import {
   aboutCards,
   certificates,
@@ -29,6 +34,55 @@ import {
 
 const heroNameSequence = [profile.name]
 const heroRoleSequence = [profile.title, 'Content Creator', 'Brand Growth Strategist']
+
+const projectItems = [
+  {
+    id: 'eazygrad-reel',
+    kind: 'video',
+    type: 'Reel',
+    orientation: 'portrait',
+    title: 'EazyGrad Reel',
+    description:
+      'Short-form vertical reel produced for the EazyGrad assignment — hook, motion, and captions tuned for Instagram.',
+    src: reelVideo,
+    poster: reelCover,
+  },
+  {
+    id: 'eazygrad-presentation',
+    kind: 'video',
+    type: 'Presentation',
+    orientation: 'landscape',
+    title: 'Strategy Presentation Walkthrough',
+    description:
+      'A recorded walkthrough of the EazyGrad content strategy deck covering positioning, hooks, and the posting plan.',
+    src: presentationVideo,
+    poster: linkedinPoster,
+  },
+  {
+    id: 'eazygrad-linkedin-poster',
+    kind: 'image',
+    type: 'Poster',
+    title: 'EazyGrad LinkedIn Post',
+    description: 'Branded LinkedIn creative designed for the EazyGrad campaign.',
+    src: linkedinPoster,
+  },
+  {
+    id: 'eazygrad-reel-cover',
+    kind: 'image',
+    type: 'Poster',
+    title: 'EazyGrad Reel Cover',
+    description: 'Cover frame designed to keep the reel on-brand on the feed grid.',
+    src: reelCover,
+  },
+  {
+    id: 'eazygrad-deck',
+    kind: 'pdf',
+    type: 'Deck',
+    title: 'EazyGrad Assignment Deck',
+    description: 'The full strategy presentation as a PDF — open or download to read every slide.',
+    src: assignmentPdf,
+  },
+]
 
 const socialIcons = {
   linkedin: (
@@ -614,6 +668,97 @@ function App() {
                     <p>{item.description}</p>
                   </div>
                 </a>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="section" id="projects">
+          <SectionHeading {...sections.projects} />
+
+          <div className="projects-grid">
+            {projectItems.map((item, index) => (
+              <Reveal
+                key={item.id}
+                className={`glass project-card project-card-${item.kind} ${
+                  item.orientation ? `project-card-${item.orientation}` : ''
+                }`}
+                delay={index * 0.05}
+                direction={index % 2 === 0 ? 'left' : 'right'}
+                data-cursor="hover"
+              >
+                <div className="project-visual">
+                  {item.kind === 'video' ? (
+                    <video
+                      className="project-media"
+                      src={item.src}
+                      poster={item.poster}
+                      controls
+                      preload="none"
+                      playsInline
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : null}
+
+                  {item.kind === 'image' ? (
+                    <a
+                      className="project-media-link"
+                      href={item.src}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Open ${item.title} full size`}
+                    >
+                      <img
+                        className="project-media project-media-image"
+                        src={item.src}
+                        alt={item.title}
+                        loading="lazy"
+                      />
+                    </a>
+                  ) : null}
+
+                  {item.kind === 'pdf' ? (
+                    <div className="project-pdf">
+                      <span className="project-pdf-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                          <path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
+                          <path d="M14 3v4h4" />
+                          <path d="M9 13h6M9 16h6" />
+                        </svg>
+                      </span>
+                      <span className="project-pdf-label">PDF Presentation</span>
+                    </div>
+                  ) : null}
+
+                  <span className={`project-badge project-badge-${index % 3}`}>{item.type}</span>
+                </div>
+
+                <div className="project-copy">
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  {item.kind === 'pdf' ? (
+                    <div className="project-actions">
+                      <a
+                        className="project-btn"
+                        href={item.src}
+                        target="_blank"
+                        rel="noreferrer"
+                        data-cursor="hover"
+                      >
+                        Open PDF
+                      </a>
+                      <a
+                        className="project-btn project-btn-ghost"
+                        href={item.src}
+                        download
+                        data-cursor="hover"
+                      >
+                        Download
+                      </a>
+                    </div>
+                  ) : null}
+                </div>
               </Reveal>
             ))}
           </div>
